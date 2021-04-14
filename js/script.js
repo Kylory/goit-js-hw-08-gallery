@@ -20,6 +20,17 @@ function addNewElementsMarkup() {
 }
 addNewElementsMarkup();
 
+function makeImagesArrow() {
+  const imagesArrow = [];
+  gallery.forEach(element => {
+    imagesArrow.push(element.original);
+  });
+  return imagesArrow;
+}
+
+const imagesArrow = makeImagesArrow();
+console.log(imagesArrow);
+
 function openModal() {
   lightboxRef.classList.add('is-open');
   window.addEventListener('keydown', onEscapePress);
