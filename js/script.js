@@ -20,26 +20,26 @@ function addNewElementsMarkup() {
 }
 addNewElementsMarkup();
 
-function makeImagesArrow() {
-  const imagesArrow = [];
+function makeImagesArray() {
+  const imagesArray = [];
   gallery.forEach(element => {
-    imagesArrow.push(element.original);
+    imagesArray.push(element.original);
   });
-  return imagesArrow;
+  return imagesArray;
 }
-
-const imagesArrow = makeImagesArrow();
-console.log(imagesArrow);
+const imagesArray = makeImagesArray();
 
 function openModal() {
   lightboxRef.classList.add('is-open');
   window.addEventListener('keydown', onEscapePress);
+  window.addEventListener('keyup', onArrowPress);
 }
 
 function closeModal() {
   lightboxImageRef.src = '';
   lightboxRef.classList.remove('is-open');
   window.removeEventListener('keydown', onEscapePress);
+  window.removeEventListener('keyup', onArrowPress);
 }
 
 function onEscapePress(event) {
@@ -48,10 +48,28 @@ function onEscapePress(event) {
   }
 }
 
+let imageIndex;
+
+function onArrowPress(event) {
+  let currentIndex = imageIndex;
+
+  if (event.code === 'ArrowRight') {
+    if (currentIndex + 1 >= imagesArray.length) {
+      imageIndex = 0;
+    } else imageIndex = currentIndex + 1;
+  } else if (event.code === 'ArrowLeft') {
+    if (currentIndex - 1 < 0) {
+      imageIndex = imagesArray.length - 1;
+    } else imageIndex = currentIndex - 1;
+  }
+  lightboxImageRef.src = imagesArray[imageIndex];
+}
+
 function onGalleryElementClick(event) {
   event.preventDefault();
   if (event.target.classList.contains('gallery__image')) {
-    lightboxImageRef.src = event.target.getAttribute('data-source');
+    imageIndex = imagesArray.indexOf(event.target.getAttribute('data-source'));
+    lightboxImageRef.src = imagesArray[imageIndex];
     openModal();
   }
 }
