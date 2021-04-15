@@ -20,14 +20,7 @@ function addNewElementsMarkup() {
 }
 addNewElementsMarkup();
 
-function makeImagesArray() {
-  const imagesArray = [];
-  gallery.forEach(element => {
-    imagesArray.push(element.original);
-  });
-  return imagesArray;
-}
-const imagesArray = makeImagesArray();
+const imagesArray = gallery.map(elem => elem.original);
 
 function openModal() {
   lightboxRef.classList.add('is-open');
