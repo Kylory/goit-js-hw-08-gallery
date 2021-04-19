@@ -22,6 +22,7 @@ const imagesArray = gallery.map(elem => elem.original);
 function openModal() {
   lightboxRef.classList.add('is-open');
   window.addEventListener('keyup', onKeyPress);
+  lightBoxOverlayRef.addEventListener('click', onLightBoxOverlayClick);
 }
 
 function closeModal() {
@@ -70,4 +71,3 @@ function onKeyPress(event) {
 }
 
 galleryRef.addEventListener('click', onGalleryElementClick);
-lightBoxOverlayRef.addEventListener('click', onLightBoxOverlayClick);
