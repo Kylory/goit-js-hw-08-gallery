@@ -33,10 +33,9 @@ function closeModal() {
 }
 
 function onLightBoxOverlayClick(event) {
-  if (event.target.nodeName === 'IMG') {
-    return;
+  if (event.target.nodeName !== 'IMG') {
+    closeModal();
   }
-  closeModal();
 }
 
 function onGalleryElementClick(event) {
