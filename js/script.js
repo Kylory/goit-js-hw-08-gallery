@@ -3,10 +3,7 @@ import gallery from './gallery-items.js';
 const galleryRef = document.querySelector('.js-gallery');
 const lightboxRef = document.querySelector('.js-lightbox');
 const lightboxImageRef = document.querySelector('.lightbox__image');
-const modalCloseButtonRef = document.querySelector(
-  'button[data-action="close-lightbox"]',
-);
-const lightBoxOverlayRef = document.querySelector('.lightbox__overlay');
+const lightBoxOverlayRef = document.querySelector('.lightbox');
 
 function makeElementMarkup({ preview, original, description }) {
   return `<li><a class="gallery__link" href=${original}><img class="gallery__image" src=${preview} data-source=${original} alt=${description}/></a></li>`;
@@ -24,26 +21,25 @@ const imagesArray = gallery.map(elem => elem.original);
 
 function openModal() {
   lightboxRef.classList.add('is-open');
-  window.addEventListener('keydown', onEscapePress);
-  window.addEventListener('keyup', onArrowPress);
+  window.addEventListener('keyup', onKeyPress);
+  // window.addEventListener('keyup', onKeyPress);
 }
 
 function closeModal() {
   lightboxImageRef.src = '';
   lightboxRef.classList.remove('is-open');
-  window.removeEventListener('keydown', onEscapePress);
-  window.removeEventListener('keyup', onArrowPress);
-}
-
-function onEscapePress(event) {
-  if (event.code === 'Escape') {
-    closeModal();
-  }
+  window.removeEventListener('keyup', onKeyPress);
+  // window.removeEventListener('keyup', onKeyPress);
 }
 
 let imageIndex;
 
-function onArrowPress(event) {
+function onKeyPress(event) {
+  if (event.code === 'Escape') {
+    closeModal();
+    return;
+  }
+
   let currentIndex = imageIndex;
 
   if (event.code === 'ArrowRight') {
@@ -68,5 +64,12 @@ function onGalleryElementClick(event) {
 }
 
 galleryRef.addEventListener('click', onGalleryElementClick);
-modalCloseButtonRef.addEventListener('click', closeModal);
-lightBoxOverlayRef.addEventListener('click', closeModal);
+// modalCloseButtonRef.addEventListener('click', closeModal);
+// lightBoxOverlayRef.addEventListener('click', closeModal);
+
+lightBoxOverlayRef.addEventListener("click", (e) => {
+  if (e.target.nodeName === "IMG") {
+    return;
+  }
+  closeModal();
+});
