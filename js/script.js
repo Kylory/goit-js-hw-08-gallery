@@ -22,14 +22,29 @@ const imagesArray = gallery.map(elem => elem.original);
 function openModal() {
   lightboxRef.classList.add('is-open');
   window.addEventListener('keyup', onKeyPress);
-  // window.addEventListener('keyup', onKeyPress);
 }
 
 function closeModal() {
   lightboxImageRef.src = '';
   lightboxRef.classList.remove('is-open');
   window.removeEventListener('keyup', onKeyPress);
-  // window.removeEventListener('keyup', onKeyPress);
+  lightBoxOverlayRef.removeEventListener('click', onLightBoxOverlayClick);
+}
+
+function onLightBoxOverlayClick(event) {
+  if (event.target.nodeName === 'IMG') {
+    return;
+  }
+  closeModal();
+}
+
+function onGalleryElementClick(event) {
+  event.preventDefault();
+  if (event.target.classList.contains('gallery__image')) {
+    imageIndex = imagesArray.indexOf(event.target.getAttribute('data-source'));
+    lightboxImageRef.src = imagesArray[imageIndex];
+    openModal();
+  }
 }
 
 let imageIndex;
@@ -54,22 +69,5 @@ function onKeyPress(event) {
   lightboxImageRef.src = imagesArray[imageIndex];
 }
 
-function onGalleryElementClick(event) {
-  event.preventDefault();
-  if (event.target.classList.contains('gallery__image')) {
-    imageIndex = imagesArray.indexOf(event.target.getAttribute('data-source'));
-    lightboxImageRef.src = imagesArray[imageIndex];
-    openModal();
-  }
-}
-
 galleryRef.addEventListener('click', onGalleryElementClick);
-// modalCloseButtonRef.addEventListener('click', closeModal);
-// lightBoxOverlayRef.addEventListener('click', closeModal);
-
-lightBoxOverlayRef.addEventListener("click", (e) => {
-  if (e.target.nodeName === "IMG") {
-    return;
-  }
-  closeModal();
-});
+lightBoxOverlayRef.addEventListener('click', onLightBoxOverlayClick);
