@@ -1,5 +1,8 @@
 import gallery from './gallery-items.js';
 
+// import { hello } from './open-modal.js';
+import { openModal } from './open-modal.js';
+
 const refs = {
   gallery: document.querySelector('.js-gallery'),
   lightbox: document.querySelector('.js-lightbox'),
@@ -21,11 +24,11 @@ addNewElementsMarkup();
 
 const imagesArray = gallery.map(elem => elem.original);
 
-function openModal() {
-  refs.lightbox.classList.add('is-open');
-  window.addEventListener('keyup', onKeyPress);
-  refs.lightBoxOverlay.addEventListener('click', onLightBoxOverlayClick);
-}
+// function openModal() {
+//   refs.lightbox.classList.add('is-open');
+//   window.addEventListener('keyup', onKeyPress);
+//   refs.lightBoxOverlay.addEventListener('click', onLightBoxOverlayClick);
+// }
 
 function closeModal() {
   refs.lightboxImage.src = '';
@@ -45,7 +48,12 @@ function onGalleryElementClick(event) {
   if (event.target.classList.contains('gallery__image')) {
     imageIndex = imagesArray.indexOf(event.target.getAttribute('data-source'));
     refs.lightboxImage.src = imagesArray[imageIndex];
-    openModal();
+    openModal(
+      refs.lightbox,
+      refs.lightBoxOverlay,
+      onKeyPress,
+      onLightBoxOverlayClick,
+    );
   }
 }
 

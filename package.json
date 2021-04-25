@@ -1,0 +1,29 @@
+{
+  "name": "goit-js-hw-08-gallery",
+  "version": "1.0.0",
+  "description": "gallery",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html",
+    "predeploy": "npm run build -- --public-url /goit-js-hw-08-gallery/",
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kylory/goit-js-hw-08-gallery.git"
+  },
+  "author": "Kylory",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kylory/goit-js-hw-08-gallery/issues"
+  },
+  "homepage": "https://github.com/Kylory/goit-js-hw-08-gallery#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  },
+  "dependencies": {
+    "gh-pages": "^3.1.0"
+  }
+}
