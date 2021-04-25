@@ -162,13 +162,29 @@ var _default = [{
   description: 'Lighthouse Coast Sea'
 }];
 exports.default = _default;
+},{}],"js/open-modal.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.openModal = openModal;
+
+function openModal(lightboxRef, lightBoxOverlayRef, onKeyPressFunc, onLightBoxOverlayClickFunc) {
+  lightboxRef.classList.add('is-open');
+  window.addEventListener('keyup', onKeyPressFunc);
+  lightBoxOverlayRef.addEventListener('click', onLightBoxOverlayClickFunc);
+}
 },{}],"js/script.js":[function(require,module,exports) {
 "use strict";
 
 var _galleryItems = _interopRequireDefault(require("./gallery-items.js"));
 
+var _openModal = require("./open-modal.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// import { hello } from './open-modal.js';
 var refs = {
   gallery: document.querySelector('.js-gallery'),
   lightbox: document.querySelector('.js-lightbox'),
@@ -191,13 +207,12 @@ addNewElementsMarkup();
 
 var imagesArray = _galleryItems.default.map(function (elem) {
   return elem.original;
-});
+}); // function openModal() {
+//   refs.lightbox.classList.add('is-open');
+//   window.addEventListener('keyup', onKeyPress);
+//   refs.lightBoxOverlay.addEventListener('click', onLightBoxOverlayClick);
+// }
 
-function openModal() {
-  refs.lightbox.classList.add('is-open');
-  window.addEventListener('keyup', onKeyPress);
-  refs.lightBoxOverlay.addEventListener('click', onLightBoxOverlayClick);
-}
 
 function closeModal() {
   refs.lightboxImage.src = '';
@@ -218,7 +233,7 @@ function onGalleryElementClick(event) {
   if (event.target.classList.contains('gallery__image')) {
     imageIndex = imagesArray.indexOf(event.target.getAttribute('data-source'));
     refs.lightboxImage.src = imagesArray[imageIndex];
-    openModal();
+    (0, _openModal.openModal)(refs.lightbox, refs.lightBoxOverlay, onKeyPress, onLightBoxOverlayClick);
   }
 }
 
@@ -246,7 +261,7 @@ function onKeyPress(event) {
 }
 
 refs.gallery.addEventListener('click', onGalleryElementClick);
-},{"./gallery-items.js":"js/gallery-items.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./gallery-items.js":"js/gallery-items.js","./open-modal.js":"js/open-modal.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -274,7 +289,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50576" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51750" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
